@@ -16,6 +16,14 @@ function createDBConnection() {
             password: '',
             database: 'casadocodigo_nodejs_teste'
         });
+    
+    if (process.env.NODE_ENV == 'production') 
+        return mysql.createConnection({
+            host: process.env.IP,
+            user: process.env.C9_USER,
+            password: '',
+            database: 'casadocodigo_nodejs'
+        });
 }
 
 module.exports = function() {

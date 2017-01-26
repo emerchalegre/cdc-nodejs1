@@ -1,7 +1,7 @@
 module.exports = function(app) {
 	app.get('/produtos', function(req, res, next){
-		let connection = app.infra.connectionFactory()
-		let produtosDAO = new app.infra.ProdutosDAO(connection)
+		var connection = app.infra.connectionFactory()
+		var produtosDAO = new app.infra.ProdutosDAO(connection)
 
 		produtosDAO.lista(function(erros, resultados) {
 			
@@ -27,12 +27,12 @@ module.exports = function(app) {
 
 	app.post('/produtos', function(req, res) {
 
-		let produto = req.body
+		var produto = req.body
 
 		req.assert('titulo', 'Título Obrigatório').notEmpty()
 		req.assert('preco', 'Formato inválido').isFloat()
 
-		let erros = req.validationErrors()
+		var erros = req.validationErrors()
 
 		if(erros) {
 			res.format({
@@ -47,8 +47,8 @@ module.exports = function(app) {
 		}
 
 
-		let connection = app.infra.connectionFactory()
-		let produtosDAO = new app.infra.ProdutosDAO(connection)
+		var connection = app.infra.connectionFactory()
+		var produtosDAO = new app.infra.ProdutosDAO(connection)
 
 		produtosDAO.salva(produto, function(erros, resultados) {
 			res.redirect('/produtos')
@@ -56,11 +56,11 @@ module.exports = function(app) {
 	})
 
 	app.delete('/produtos', function(req, res) {
-		let produto = req.body
-		let connection = app.infra.connectionFactory()
-		let produtosDAO = new app.infra.ProdutosDAO(connection)
+		var produto = req.body
+		var connection = app.infra.connectionFactory()
+		var produtosDAO = new app.infra.ProdutosDAO(connection)
 
-		produtosDAO.delete(produto, function(erros, resultados) {
+		produtosDAO.devare(produto, function(erros, resultados) {
 			res.redirect('/produtos')
 		})
 	})

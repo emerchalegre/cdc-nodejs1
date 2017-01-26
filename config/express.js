@@ -1,35 +1,35 @@
-const express = require('express')
-const load = require('express-load')
-const bodyParser = require('body-parser')
-const expressValidator = require('express-validator')
+var express = require('express');
+var load = require('express-load');
+var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 
 module.exports = function() {
-	let app = express()
 
-	app.use(express.static('./app/public'));
-	app.set('view engine', 'ejs')
-	app.set('views', './app/views')
+    var app = express();
+    app.use(express.static('./public'));
+    app.set('view engine', 'ejs');
+    app.set('views','./app/views');
 
-	app.use(bodyParser.urlencoded({extended: true}))
-	app.use(bodyParser.json())
-	app.use(expressValidator())
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+    app.use(expressValidator());
 
-	load('routes', {cwd: 'app'})
-		.then('infra')
-		.into(app)
+    load('routes',{cwd: 'app',verbose:true})
+        .then('infra')
+        .into(app);
 
-	app.use(function(req,res,next){
-	    res.staus(404),render('erros/404')
-	    next()
-	})
+    app.use(function(req, res, next){
+        res.status(404).render("erros/404");
+    });
 
-	app.use(function(error,req,res,next){
-	    if (process.env.NODE_ENV == 'production') {
-	    	res.staus(500),render('erros/404')
-	    	return
-	    }
-	    next(error)
-	})	
+    app.use(function(error,req, res, next){
+        //res.status(500).render("erros/500");
+        next(error);
+    });
+    //tem que colocar na ordem, caso contrário ele passa pelo middleware e ainda não vai ter acontecido nenhum erro.
 
-	return app
-}
+
+
+
+    return app;
+};

@@ -88,6 +88,7 @@
 
     <ul id="home-highlight-collection">
         <%for(i=0; i<3; i++) {%>
+        <%if(livros[i] != undefined) {%>
         <li class="col-left">
             <a href="linkDetalhe" class="block clearfix">
                 <img width="170" height="240" src="urlImagem" alt="<%=livros[i].titulo%>" title="<%=livros[i].titulo%>"/>
@@ -96,6 +97,7 @@
                 <small class="buy-button">Lan&#231;amento!</small>
             </a>
         </li>
+        <%}%>
         <%}%>
     </ul>
 
@@ -252,7 +254,8 @@
 <script>
     var socket = io();
     socket.on('novaPromocao', function (data) {
-        alert(data.livro.id);
+        console.log(data);
+        alert(data.livro.id + ' em promoção');
     });
 </script>
 </body>
