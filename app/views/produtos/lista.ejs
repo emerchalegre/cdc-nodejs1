@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Listagem de Produtos</title>
+</head>
+<body>
+
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Título</th>
+			<th>Descrição</th>
+			<th>Preço</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%for(let i=0;i<lista.length;i++){%>
+			<tr>
+				<td><%=lista[i].id%></td>
+				<td><%=lista[i].titulo%></td>
+				<td><%=lista[i].descricao%></td>
+				<td><%=lista[i].preco%></td>
+			</tr>
+		<%}%>
+	</tbody>
+</table>
+
+</body>
+</html>
